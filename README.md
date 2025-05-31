@@ -27,14 +27,20 @@ cd yt2mp3-flask
 ```
 
 2. **Install dependencies**
-   pip install flask yt-dlp
+   ```bash
+      pip install flask yt-dlp
+   ```
 
 3. **Ensure ffmpeg is installed and added to your PATH**
+
     Download from: https://ffmpeg.org/download.html
     Or set ffmpeg_location in ydl_opts if not globally available.
 
+
 4.**Run the Flask server**
-    python server.py
+   ```bash
+ python server.py
+```
     
 5.**Access the app**
     Visit: http://127.0.0.1:5000/ in your browser
