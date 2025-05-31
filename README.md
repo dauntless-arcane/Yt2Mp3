@@ -50,4 +50,4 @@ cd yt2mp3-flask
 ```
     
 5.**Access the app**
-    Visit: http://127.0.0.1:5000/ in your browser
+    Visit: http://127.0.0.1:3000/ in your browser
