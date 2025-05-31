@@ -33,8 +33,15 @@ cd yt2mp3-flask
 
 3. **Ensure ffmpeg is installed and added to your PATH**
 
-    Download from: https://ffmpeg.org/download.html
-    Or set ffmpeg_location in ydl_opts if not globally available.
+    - Go to url : https://www.gyan.dev/ffmpeg/builds/
+    - Download : ffmpeg-release-essentials.zip from *'release builds'* section
+    - extract the folder
+    - add the "bin" path to *'path'* of environment variables
+    - run ```bash ffmpeg -version
+ffprobe -version ```
+   
+
+
 
 
 4.**Run the Flask server**
