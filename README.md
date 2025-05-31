@@ -9,15 +9,6 @@ A lightweight web application to convert YouTube videos to MP3 audio files using
 - Simple and responsive HTML front-end (no React)
 - Uses `yt-dlp` and `ffmpeg` for fast, high-quality conversions
 
-## 📂 Project Structure
-
-project/
-│
-├── static/
-│    └── index.html # Frontend UI
-├── downloads/ # Converted MP3 files
-├── server.py # Flask backend logic
-└── README.md # This file
 
 ## 🛠 Requirements
 
