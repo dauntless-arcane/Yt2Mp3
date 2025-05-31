@@ -37,8 +37,8 @@ cd yt2mp3-flask
     - Download : ffmpeg-release-essentials.zip from *'release builds'* section
     - extract the folder
     - add the "bin" path to *'path'* of environment variables
-    - run ```bash ffmpeg -version
-ffprobe -version ```
+    - run ```ffmpeg -version``` and ```ffprobe -version ```
+    - your good to proceed is no error is found
    
 
 
