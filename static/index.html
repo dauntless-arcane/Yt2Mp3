@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yt2Mp3 - YouTube to MP3 Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            background: linear-gradient(135deg, #8B5FBF, #6A4C93);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        input[type="text"]:focus {
+            border-color: #8B5FBF;
+            background: white;
+            box-shadow: 0 0 20px rgba(139, 95, 191, 0.1);
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        .convert-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #8B5FBF, #6A4C93);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(139, 95, 191, 0.3);
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(139, 95, 191, 0.4);
+        }
+
+        .convert-btn:active {
+            transform: translateY(0);
+        }
+
+        .convert-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-container {
+            margin: 25px 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-container.show {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8B5FBF, #6A4C93);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .result {
+            margin-top: 25px;
+            min-height: 30px;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #059669;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .loading {
+            background: rgba(139, 95, 191, 0.1);
+            color: #8B5FBF;
+            border: 1px solid rgba(139, 95, 191, 0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+
+        .feature-list {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #8B5FBF, #6A4C93);
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo">Yt2Mp3</h1>
+        <p class="subtitle">Convert YouTube videos to high-quality MP3 files</p>
+
+        <div class="input-container">
+            <input type="text" id="url" placeholder="Paste your YouTube URL here...">
+        </div>
+
+        <button class="convert-btn" onclick="convertToMP3()">
+            <span id="btn-text">Convert to MP3</span>
+        </button>
+
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">Preparing conversion...</div>
+        </div>
+
+        <div class="result">
+            <div id="message"></div>
+        </div>
+
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <span>High-quality MP3 conversion</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <span>Fast and reliable processing</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <span>Secure and private conversion</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isConverting = false;
+
+        function showProgress() {
+            const container = document.getElementById('progress-container');
+            container.classList.add('show');
+        }
+
+        function hideProgress() {
+            const container = document.getElementById('progress-container');
+            container.classList.remove('show');
+        }
+
+        function updateProgress(percentage, text) {
+            const fill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            fill.style.width = percentage + '%';
+            progressText.textContent = text;
+        }
+
+        function showMessage(message, type) {
+            const messageEl = document.getElementById('message');
+            messageEl.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+
+        function simulateProgress() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                
+                let text = '';
+                if (progress < 30) text = 'Fetching video information...';
+                else if (progress < 60) text = 'Extracting audio track...';
+                else if (progress < 90) text = 'Converting to MP3...';
+                else text = 'Finalizing download...';
+                
+                updateProgress(progress, text);
+                
+                if (!isConverting) {
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+
+        function convertToMP3() {
+            if (isConverting) return;
+            
+            const url = document.getElementById('url').value.trim();
+            const btnText = document.getElementById('btn-text');
+            const convertBtn = document.querySelector('.convert-btn');
+            
+            if (!url) {
+                showMessage('Please enter a YouTube URL', 'error');
+                return;
+            }
+            
+            // Validate YouTube URL
+            const youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
+            if (!youtubeRegex.test(url)) {
+                showMessage('Please enter a valid YouTube URL', 'error');
+                return;
+            }
+            
+            isConverting = true;
+            convertBtn.disabled = true;
+            btnText.textContent = 'Converting...';
+            
+            showProgress();
+            simulateProgress();
+            showMessage('Starting conversion...', 'loading');
+
+            fetch(`/convert?url=${encodeURIComponent(url)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    updateProgress(100, 'Download ready!');
+                    
+                    const contentDisposition = response.headers.get('Content-Disposition');
+                    let filename = 'download.mp3';
+
+                    if (contentDisposition) {
+                        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+                        if (filenameMatch && filenameMatch.length > 1) {
+                            filename = filenameMatch[1];
+                        }
+                    }
+
+                    return response.blob().then(blob => ({
+                        blob: blob,
+                        filename: filename
+                    }));
+                })
+                .then(data => {
+                    const downloadUrl = window.URL.createObjectURL(data.blob);
+                    const a = document.createElement('a');
+                    a.href = downloadUrl;
+                    a.download = data.filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(downloadUrl);
+
+                    showMessage('🎵 Download completed successfully! Check your downloads folder.', 'success');
+                    setTimeout(hideProgress, 1000);
+                })
+                .catch(error => {
+                    console.error('Conversion error:', error);
+                    showMessage(`❌ Conversion failed: ${error.message}`, 'error');
+                    hideProgress();
+                })
+                .finally(() => {
+                    isConverting = false;
+                    convertBtn.disabled = false;
+                    btnText.textContent = 'Convert to MP3';
+                });
+        }
+
+        // Allow Enter key to trigger conversion
+        document.getElementById('url').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                convertToMP3();
+            }
+        });
+    </script>
+</body>
+</html>
