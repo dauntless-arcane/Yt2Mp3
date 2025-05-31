@@ -14,7 +14,7 @@ A lightweight web application to convert YouTube videos to MP3 audio files using
 project/
 │
 ├── static/
-│ └── index.html # Frontend UI
+│    └── index.html # Frontend UI
 ├── downloads/ # Converted MP3 files
 ├── server.py # Flask backend logic
 └── README.md # This file
