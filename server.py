@@ -42,7 +42,6 @@ def convert_to_mp3():
                 'preferredcodec': 'mp3',  # Convert to MP3
                 'preferredquality': '192',  # Set MP3 quality
             }],
-            'ffmpeg_location': r'C:\Users\tharu\Downloads\ffmpeg-7.1.1-essentials_build\bin',
             'headers': {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/91.0'
             },
