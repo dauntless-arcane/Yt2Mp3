@@ -42,7 +42,7 @@ def convert_to_mp3():
                 'preferredcodec': 'mp3',  # Convert to MP3
                 'preferredquality': '192',  # Set MP3 quality
             }],
-            'headers': {
+            'http_headers': {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/91.0'
             },
             # Uncomment the line below if you have a cookies.txt file
