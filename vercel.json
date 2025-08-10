@@ -1,1 +1,10 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/yt2mp3.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/api/yt2mp3.py" }
+  ]
+}
 
