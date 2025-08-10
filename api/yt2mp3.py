@@ -9,10 +9,10 @@ app = Flask(__name__)
 def sanitize_filename(filename):
     filename = re.sub(r'[<>:"/\\|?*]', '', filename)
     return filename.rstrip(' .')
-
+STATIC_DIR = os.path.join(os.path.dirname(__file__), '..', 'static')
 @app.route('/')
 def home():
-    return send_from_directory(os.path.join(os.getcwd(), 'static'), 'index.html')
+    return send_from_directory(STATIC_DIR, 'index.html')
 
 @app.route('/convert', methods=['GET'])
 def convert_to_mp3():
