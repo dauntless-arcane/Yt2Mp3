@@ -1,10 +1,12 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/yt2mp3.py", "use": "@vercel/python" }
+    { "src": "api/yt2mp3.py", "use": "@vercel/python" },
+    { "src": "static/**/*", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/api/yt2mp3.py" }
+    { "src": "/api/(.*)", "dest": "/api/yt2mp3.py" },
+    { "src": "/", "dest": "/static/index.html" },
+    { "src": "/(.*)", "dest": "/static/$1" }
   ]
 }
-
