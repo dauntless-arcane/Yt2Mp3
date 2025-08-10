@@ -1,1 +1,4 @@
+Flask
+yt-dlp
+ffmpeg-python
 
